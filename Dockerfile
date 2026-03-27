@@ -3,10 +3,9 @@ FROM ubuntu:24.04
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl ca-certificates git bash openssh-client nodejs npm \
-    procps tini apache2-utils \
+    procps tini \
     && rm -rf /var/lib/apt/lists/* \
-    && ln -sf /usr/bin/bash /bin/bash \
-    && echo 'opencode:Mq7uCz7yxSjtRstjsuieci567' > /etc/opencode.htpasswd
+    && ln -sf /usr/bin/bash /bin/bash
 
 RUN curl -fsSL https://opencode.ai/install | bash
 
