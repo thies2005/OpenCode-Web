@@ -4,9 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      # Use Coolify's dynamic URL instead of hardcoding
       - OPENCODE_SERVER_URL=${SERVICE_URL_OPENCODE:-https://opencode.schuelken.uk}
-      - OPENCODE_SERVER_USERNAME=${OPENCODE_SERVER_USERNAME:-opencode}
     volumes:
       - opencode-config:/root/.config/opencode
       - opencode-local:/root/.local/share/opencode
@@ -15,17 +13,10 @@ services:
     networks:
       - coolify
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:4096"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
     labels:
       - "traefik.enable=true"
       - "coolify.port=4096"
-      # Hardcoding the hash with double $$ for Traefik's own parser
-      - "traefik.http.middlewares.opencode-auth.basicauth.users=opencode:$$2a$$10$$W5CYPjfVZblrptazWFvgXekfrgoWf3b9iRcqGZmu4.SO02p3o1COG"
+      - "traefik.http.middlewares.opencode-auth.basicauth.users=opencode:$$2a$$10$$W5CYPjfVZblrptazWFvgXekfrgoWf3b9iRcqGZmu4$$SO02p3o1COG"
       - "coolify.traefik.middlewares=opencode-auth"
 
 volumes:
