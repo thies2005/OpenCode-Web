@@ -7,6 +7,7 @@ services:
     stdin_open: true
     environment:
       - OPENCODE_SERVER_URL=https://opencode.schuelken.uk
+      - OPENCODE_SERVER_USERNAME=
     volumes:
       - opencode-config:/root/.config/opencode
       - opencode-local:/root/.local/share/opencode
@@ -15,10 +16,6 @@ services:
     networks:
       - coolify
     restart: unless-stopped
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.opencode.middlewares=opencode-auth"
-      - "traefik.http.middlewares.opencode-auth.basicauth.users=${OPENCODE_BASIC_AUTH:?}"
 
 volumes:
   opencode-config:
