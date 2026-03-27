@@ -5,12 +5,13 @@ services:
       dockerfile: Dockerfile
     environment:
       - OPENCODE_SERVER_PASSWORD=${OPENCODE_SERVER_PASSWORD:?}
-      - OPENCODE_SERVER_USERNAME=${OPENCODE_SERVER_USERNAME:-opencode}
     volumes:
       - opencode-config:/root/.config/opencode
       - opencode-local:/root/.local/share/opencode
       - opencode-home:/root/.opencode
       - workspace:/workspace
+    networks:
+      - coolify
     restart: unless-stopped
 
 volumes:
@@ -18,3 +19,7 @@ volumes:
   opencode-local:
   opencode-home:
   workspace:
+
+networks:
+  coolify:
+    external: true
