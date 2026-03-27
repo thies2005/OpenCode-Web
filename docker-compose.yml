@@ -15,10 +15,17 @@ services:
     networks:
       - coolify
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4096"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     labels:
       - "traefik.enable=true"
       - "coolify.port=4096"
-      - "traefik.http.middlewares.opencode-auth.basicauth.users=${OPENCODE_BASIC_AUTH}"
+      # Hardcoding the hash with double $$ for Traefik's own parser
+      - "traefik.http.middlewares.opencode-auth.basicauth.users=opencode:$$2a$$10$$W5CYPjfVZblrptazWFvgXekfrgoWf3b9iRcqGZmu4.SO02p3o1COG"
       - "coolify.traefik.middlewares=opencode-auth"
 
 volumes:
