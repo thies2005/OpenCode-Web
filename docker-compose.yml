@@ -15,6 +15,10 @@ services:
     networks:
       - coolify
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.opencode.middlewares=opencode-auth"
+      - "traefik.http.middlewares.opencode-auth.basicauth.users=${OPENCODE_BASIC_AUTH:?}"
 
 volumes:
   opencode-config:
