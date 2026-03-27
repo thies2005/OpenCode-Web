@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
     environment:
       - OPENCODE_SERVER_PASSWORD=${OPENCODE_SERVER_PASSWORD:?}
     volumes:
