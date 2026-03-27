@@ -7,9 +7,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl -fsSL https://opencode.ai/install | bash
-RUN ln -sf /bin/bash /usr/bin/bash
+RUN ln -sf /bin/bash /usr/bin/bash || true
 
-ENV SHELL=/usr/bin/bash
+ENV SHELL=/bin/bash
 ENV PATH="/root/.opencode/bin:${PATH}"
 WORKDIR /workspace
 
