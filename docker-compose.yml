@@ -16,9 +16,10 @@ services:
       - coolify
     restart: unless-stopped
     labels:
-      # Stripped down to just enable routing to the container
       - "traefik.enable=true"
       - "coolify.port=4096"
+      - "traefik.http.middlewares.opencode-auth.basicauth.users=${OPENCODE_BASIC_AUTH}"
+      - "coolify.traefik.middlewares=opencode-auth"
 
 volumes:
   opencode-config:
