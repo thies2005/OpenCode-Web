@@ -4,8 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl ca-certificates git bash openssh-client nodejs npm \
     procps tini \
-    && rm -rf /var/lib/apt/lists/* \
-    && ln -sf /usr/bin/bash /bin/bash
+    && rm -rf /var/lib/apt/lists/*
 
 RUN curl -fsSL https://opencode.ai/install | bash
 
