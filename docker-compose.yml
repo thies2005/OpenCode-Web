@@ -5,7 +5,6 @@ services:
       dockerfile: Dockerfile
     environment:
       - OPENCODE_SERVER_URL=https://opencode.schuelken.uk
-      - OPENCODE_BASIC_AUTH=${OPENCODE_BASIC_AUTH}
     volumes:
       - opencode-config:/root/.config/opencode
       - opencode-local:/root/.local/share/opencode
@@ -17,8 +16,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "coolify.port=4096"
-      - "traefik.http.middlewares.opencode-auth.basicauth.users=${OPENCODE_BASIC_AUTH}"
-      - "coolify.traefik.middlewares=opencode-auth"
 
 volumes:
   opencode-config:
