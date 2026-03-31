@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - OPENCODE_SERVER_PASSWORD=${OPENCODE_SERVER_PASSWORD:-}
+      - OPENCODE_BASIC_AUTH=${OPENCODE_BASIC_AUTH:?Set OPENCODE_BASIC_AUTH in Coolify env vars (htpasswd format)}
     volumes:
       - opencode-config:/root/.config/opencode
       - opencode-local:/root/.local/share/opencode
@@ -16,6 +16,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "coolify.port=4096"
+      - "traefik.http.middlewares.opencode-auth.basicauth.users=${OPENCODE_BASIC_AUTH}"
 
 volumes:
   opencode-config:
