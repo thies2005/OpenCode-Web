@@ -12,9 +12,12 @@ RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
 
 RUN curl -fsSL https://opencode.ai/install | bash
 
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 ENV SHELL=/bin/bash
 ENV PATH="/root/.opencode/bin:${PATH}"
 WORKDIR /workspace
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
-CMD ["opencode", "web", "--hostname", "0.0.0.0", "--port", "4096"]
+CMD ["/bin/bash", "-c", "/entrypoint.sh restore && exec opencode web --hostname 0.0.0.0 --port 4096"]
