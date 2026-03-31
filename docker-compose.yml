@@ -4,7 +4,6 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - OPENCODE_SERVER_URL=https://opencode.schuelken.uk
     volumes:
       - opencode-config:/root/.config/opencode
       - opencode-local:/root/.local/share/opencode
