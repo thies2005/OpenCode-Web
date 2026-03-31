@@ -16,6 +16,9 @@ services:
     labels:
       - "traefik.enable=true"
       - "coolify.port=4096"
+      - "coolify.traefik.middlewares=opencode-auth"
+      - "traefik.http.middlewares.opencode-auth.basicauth.users=${BASIC_AUTH_USERS}"
+      - "traefik.http.middlewares.opencode-auth.basicauth.removeheader=true"
 
 volumes:
   opencode-config:
